@@ -38,6 +38,8 @@ public class ResultsDTO {
 	}
 	public void setPoster(String poster) {
 		this.poster = poster;
+		if(poster.equals("N/A"))
+			this.poster= "https://upload.wikimedia.org/wikipedia/en/d/d1/Image_not_available.png";
 	}
 	public String getTotalResults() {
 		return totalResults;

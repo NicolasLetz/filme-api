@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.cast.filmeapi.dtos.DetalheFilmeDTO;
 import br.com.cast.filmeapi.dtos.FilmeDTO;
 import br.com.cast.filmeapi.dtos.ResultsDTO;
 
@@ -30,6 +31,12 @@ public class FilmeClient {
 		if(resultado.getTitle() == null) {
 			return null;
 		}
+		 	return resultado;
+	}
+
+	public DetalheFilmeDTO getDetailByImdbID(String imdbID) {
+			ResponseEntity<DetalheFilmeDTO> detalheFilmeDto =restTemplate.getForEntity(URL_BUSCAR_OMDBID, DetalheFilmeDTO.class, imdbID, APP_ID);
+			DetalheFilmeDTO resultado = detalheFilmeDto.getBody();
 		 	return resultado;
 	}
 }

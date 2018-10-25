@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cast.filmeapi.business.DetalheFilmeBusiness;
 import br.com.cast.filmeapi.business.FilmeBusiness;
+import br.com.cast.filmeapi.dtos.DetalheFilmeDTO;
 import br.com.cast.filmeapi.dtos.ResultsDTO;
 
 @RestController
@@ -16,6 +18,8 @@ import br.com.cast.filmeapi.dtos.ResultsDTO;
 public class FilmesAPI {
 	@Autowired
 	private FilmeBusiness filmeBusiness;
+	@Autowired
+	private DetalheFilmeBusiness detalheFilmeBusiness;
 	
 	//PARA BUSCAR USANDO PARAMETRO S(DEPOIS DE BUSCAR NO BD E O USER CLICAR EM +)
 	@RequestMapping(path="{titulo}", method = RequestMethod.GET)
@@ -33,5 +37,11 @@ public class FilmesAPI {
 	public List<ResultsDTO> getFilmeByTitleInDB(@PathVariable("titulo") String titulo) {
 		titulo = titulo.toLowerCase();
 		return filmeBusiness.buscarPorTituloNoBD(titulo);
+	}
+	
+	//BUSCAR OS DETALHES DO FILME
+	@RequestMapping(path="detalhes/{imdbID}", method= RequestMethod.GET)
+	public DetalheFilmeDTO getFilmeDetail(@PathVariable("imdbID") String imdbID) {
+		return detalheFilmeBusiness.buscarPorImdbID(imdbID);
 	}
 }
